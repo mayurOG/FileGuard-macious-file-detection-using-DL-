@@ -1,4 +1,4 @@
-# PE Malicious File Detector using ML &DL
+# PE Malicious File Detector using DL
 
 **Author:** Mayur Nhavalde
 
