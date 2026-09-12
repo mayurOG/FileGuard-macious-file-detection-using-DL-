@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.env
+venv/
+env/
+
+# Large binary / model files (tracked via Git LFS or stored separately)
+api/*.keras
+api/malware_data.csv
+
+# Installer EXEs in ui/ (not source code)
+ui/*.exe
+ui/*.msi
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
