@@ -7,3 +7,20 @@ scikit-learn==1.4.2
 pefile==2023.2.7
 python-multipart==0.0.9
 slowapi==0.1.9
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.12.1
+# Authentication & Security
+pyjwt==2.8.1
+passlib[bcrypt]==1.7.4
+pydantic[email]==2.5.0
+bcrypt==4.1.1
+# Caching & Queue
+redis==5.0.1
+celery==5.3.4
+# Reporting
+reportlab==4.0.7
+# HTTP
+requests==2.32.3
+httpx==0.25.2

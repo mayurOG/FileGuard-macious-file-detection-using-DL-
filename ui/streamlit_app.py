@@ -309,7 +309,7 @@ with tab_history:
                    else "color: #2ca02c; font-weight:bold"
 
         st.dataframe(
-            history_df.style.applymap(color_prediction, subset=["prediction"]),
+            history_df.style.map(color_prediction, subset=["prediction"]),
             use_container_width=True,
             hide_index=True,
         )
@@ -353,16 +353,18 @@ with tab_analytics:
         # Confidence distribution
         with row1_c1:
             st.markdown("#### Confidence Score Distribution")
-            hist_df = pd.DataFrame({"Confidence": df["confidence"]})
-            st.bar_chart(hist_df.assign(
-                Bucket=pd.cut(hist_df["Confidence"], bins=10)
-            ).groupby("Bucket", observed=True).size().rename("Count"))
+            conf_data = df[["confidence"]].copy()
+            st.bar_chart(conf_data, use_container_width=True)
 
         # Risk level pie (using bar chart as Streamlit has no native pie)
         with row1_c2:
             st.markdown("#### Risk Level Breakdown")
-            risk_counts = df["risk_level"].value_counts().rename_axis("Risk").reset_index(name="Count")
-            st.bar_chart(risk_counts.set_index("Risk"))
+            if len(df) > 0:
+                risk_data = df["risk_level"].value_counts().reset_index()
+                risk_data.columns = ["Risk", "Count"]
+                st.bar_chart(risk_data.set_index("Risk"))
+            else:
+                st.info("No data yet.")
 
         # Malicious vs legitimate over time
         st.markdown("#### Malicious vs Legitimate Over Time")

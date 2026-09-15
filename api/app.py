@@ -99,7 +99,11 @@ def _run_prediction(file_bytes: bytes, filename: str) -> dict:
     tmp.close()
 
     try:
-        features = extract_infos(tmp_path)
+        try:
+            features = extract_infos(tmp_path)
+        except Exception as e:
+            return {"error": f"PE parsing failed: {str(e)[:100]}"}
+        
         threat_indicators = compute_threat_indicators(features)
 
         feature_array = np.array([list(features.values())], dtype=np.float32)
@@ -197,6 +201,7 @@ async def predict_batch(request: Request, files: List[UploadFile] = File(...)):
 
     loop = asyncio.get_event_loop()
     tasks = []
+    file_count = len(files)  # Count all input files
     for f in files:
         if not f.filename.lower().endswith(".exe"):
             tasks.append({"filename": f.filename, "error": "Not an .exe file — skipped."})
@@ -215,7 +220,7 @@ async def predict_batch(request: Request, files: List[UploadFile] = File(...)):
             r = await t
             results.append(r)
 
-    return {"total": len(results), "results": results}
+    return {"total": file_count, "results": results}
 
 
 @app.get("/stats", tags=["Monitoring"])
