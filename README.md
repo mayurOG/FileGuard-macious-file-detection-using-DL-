@@ -54,12 +54,7 @@ Built with **FastAPI**, **TensorFlow**, and **Streamlit**, containerised with **
 ### Prerequisites
 - Docker & Docker Compose installed
 
-### Run
 
-```bash
-cd Malicious_File_Detection_using_DL-main
-docker compose up --build
-```
 
 - UI → http://localhost:8501  
 - API docs → http://localhost:8000/docs
